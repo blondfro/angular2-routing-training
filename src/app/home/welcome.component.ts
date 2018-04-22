@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-home',
+    // not needed when routing to the page.
+    // selector: 'app-home',
     templateUrl: './app/home/welcome.component.html'
 })
 export class WelcomeComponent {
