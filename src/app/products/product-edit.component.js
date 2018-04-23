@@ -22,16 +22,23 @@ var ProductEditComponent = (function () {
     }
     ProductEditComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.route.params.subscribe(function (params) {
-            var id = +params['id'];
-            _this.getProduct(id);
+        this.route.data.subscribe(function (data) {
+            _this.onProductRetrieved(data['product']);
         });
+        // no longer needed since adding in route resolver.
+        // this.route.params.subscribe(params => {
+        //     let id = +params['id'];
+        //     this.getProduct(id);
+        // });
     };
-    ProductEditComponent.prototype.getProduct = function (id) {
-        var _this = this;
-        this.productService.getProduct(id)
-            .subscribe(function (product) { return _this.onProductRetrieved(product); }, function (error) { return _this.errorMessage = error; });
-    };
+    // no longer needed since adding in route resolver.
+    // getProduct(id: number): void {
+    //     this.productService.getProduct(id)
+    //         .subscribe(
+    //             (product: IProduct) => this.onProductRetrieved(product),
+    //             (error: any) => this.errorMessage = <any>error
+    //         );
+    // }
     ProductEditComponent.prototype.onProductRetrieved = function (product) {
         this.product = product;
         if (this.product.id === 0) {
