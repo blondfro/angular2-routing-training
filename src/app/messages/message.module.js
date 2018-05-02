@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require("@angular/core");
 var shared_module_1 = require("../shared/shared.module");
+var router_1 = require("@angular/router");
 var message_component_1 = require("./message.component");
 var message_service_1 = require("./message.service");
 var MessageModule = (function () {
@@ -17,7 +18,10 @@ var MessageModule = (function () {
 MessageModule = __decorate([
     core_1.NgModule({
         imports: [
-            shared_module_1.SharedModule
+            shared_module_1.SharedModule,
+            router_1.RouterModule.forChild([
+                { path: 'messages', component: message_component_1.MessageComponent, outlet: 'popup' }
+            ])
         ],
         declarations: [
             message_component_1.MessageComponent
