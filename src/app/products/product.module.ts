@@ -12,16 +12,12 @@ import { ProductService } from './product.service';
 
 import { SharedModule } from '../shared/shared.module';
 import {ProductResolverService} from './product-resolver.service';
-import {AuthGuard} from '../user/auth-guard.service';
 import {ProductEditGuard} from './product-guard.service';
 
 @NgModule({
   imports: [
     SharedModule,
     RouterModule.forChild([
-        {path: 'products',
-            canActivate: [AuthGuard],
-        children: [
             {path: '', component: ProductListComponent},
             {path: ':id', component: ProductDetailComponent,
                 resolve: {product: ProductResolverService}},
@@ -33,7 +29,6 @@ import {ProductEditGuard} from './product-guard.service';
                     {path: 'info', component: ProductEditInfoComponent},
                     {path: 'tags', component: ProductEditTagsComponent}
                 ]}
-        ]},
     ])
   ],
   declarations: [

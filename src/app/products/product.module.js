@@ -16,7 +16,6 @@ var product_filter_pipe_1 = require("./product-filter.pipe");
 var product_service_1 = require("./product.service");
 var shared_module_1 = require("../shared/shared.module");
 var product_resolver_service_1 = require("./product-resolver.service");
-var auth_guard_service_1 = require("../user/auth-guard.service");
 var product_guard_service_1 = require("./product-guard.service");
 var ProductModule = (function () {
     function ProductModule() {
@@ -28,21 +27,17 @@ ProductModule = __decorate([
         imports: [
             shared_module_1.SharedModule,
             router_1.RouterModule.forChild([
-                { path: 'products',
-                    canActivate: [auth_guard_service_1.AuthGuard],
+                { path: '', component: product_list_component_1.ProductListComponent },
+                { path: ':id', component: product_detail_component_1.ProductDetailComponent,
+                    resolve: { product: product_resolver_service_1.ProductResolverService } },
+                { path: ':id/edit', component: product_edit_component_1.ProductEditComponent,
+                    resolve: { product: product_resolver_service_1.ProductResolverService },
+                    canDeactivate: [product_guard_service_1.ProductEditGuard],
                     children: [
-                        { path: '', component: product_list_component_1.ProductListComponent },
-                        { path: ':id', component: product_detail_component_1.ProductDetailComponent,
-                            resolve: { product: product_resolver_service_1.ProductResolverService } },
-                        { path: ':id/edit', component: product_edit_component_1.ProductEditComponent,
-                            resolve: { product: product_resolver_service_1.ProductResolverService },
-                            canDeactivate: [product_guard_service_1.ProductEditGuard],
-                            children: [
-                                { path: '', redirectTo: 'info', pathMatch: 'full' },
-                                { path: 'info', component: product_edit_info_component_1.ProductEditInfoComponent },
-                                { path: 'tags', component: product_edit_tags_component_1.ProductEditTagsComponent }
-                            ] }
-                    ] },
+                        { path: '', redirectTo: 'info', pathMatch: 'full' },
+                        { path: 'info', component: product_edit_info_component_1.ProductEditInfoComponent },
+                        { path: 'tags', component: product_edit_tags_component_1.ProductEditTagsComponent }
+                    ] }
             ])
         ],
         declarations: [
