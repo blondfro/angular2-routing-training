@@ -13,6 +13,7 @@ import { ProductService } from './product.service';
 import { SharedModule } from '../shared/shared.module';
 import {ProductResolverService} from './product-resolver.service';
 import {AuthGuard} from '../user/auth-guard.service';
+import {ProductEditGuard} from './product-guard.service';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import {AuthGuard} from '../user/auth-guard.service';
                 resolve: {product: ProductResolverService}},
             {path: ':id/edit', component: ProductEditComponent,
                 resolve: {product: ProductResolverService},
+                canDeactivate: [ProductEditGuard],
                 children: [
                     {path: '', redirectTo: 'info', pathMatch: 'full'},
                     {path: 'info', component: ProductEditInfoComponent},
@@ -44,7 +46,8 @@ import {AuthGuard} from '../user/auth-guard.service';
   ],
   providers: [
     ProductService,
-    ProductResolverService
+    ProductResolverService,
+    ProductEditGuard
   ]
 })
 export class ProductModule {}

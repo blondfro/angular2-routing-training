@@ -17,6 +17,7 @@ var product_service_1 = require("./product.service");
 var shared_module_1 = require("../shared/shared.module");
 var product_resolver_service_1 = require("./product-resolver.service");
 var auth_guard_service_1 = require("../user/auth-guard.service");
+var product_guard_service_1 = require("./product-guard.service");
 var ProductModule = (function () {
     function ProductModule() {
     }
@@ -35,6 +36,7 @@ ProductModule = __decorate([
                             resolve: { product: product_resolver_service_1.ProductResolverService } },
                         { path: ':id/edit', component: product_edit_component_1.ProductEditComponent,
                             resolve: { product: product_resolver_service_1.ProductResolverService },
+                            canDeactivate: [product_guard_service_1.ProductEditGuard],
                             children: [
                                 { path: '', redirectTo: 'info', pathMatch: 'full' },
                                 { path: 'info', component: product_edit_info_component_1.ProductEditInfoComponent },
@@ -53,7 +55,8 @@ ProductModule = __decorate([
         ],
         providers: [
             product_service_1.ProductService,
-            product_resolver_service_1.ProductResolverService
+            product_resolver_service_1.ProductResolverService,
+            product_guard_service_1.ProductEditGuard
         ]
     })
 ], ProductModule);
