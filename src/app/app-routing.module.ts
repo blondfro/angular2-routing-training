@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import {PreloadAllModules, RouterModule} from '@angular/router';
 import { WelcomeComponent } from './home/welcome.component';
 import { PageNotFoundComponent } from './page-not-found.component';
 import { AuthGuard } from './user/auth-guard.service';
@@ -10,10 +10,10 @@ import { AuthGuard } from './user/auth-guard.service';
         RouterModule.forRoot([
             {path: 'welcome', component: WelcomeComponent},
             {path: 'products', loadChildren: 'app/products/product.module#ProductModule',
-                canLoad: [AuthGuard]},
+                canActivate: [AuthGuard]},
             {path: '', redirectTo: 'welcome', pathMatch: 'full'},
             {path: '**', component: PageNotFoundComponent},
-        ],{ enableTracing: true})
+        ],{ enableTracing: true, preloadingStrategy: PreloadAllModules})
     ],
     exports: [
         RouterModule
